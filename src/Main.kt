@@ -1,11 +1,12 @@
 package org.cobaltumapps
 
+import java.util.concurrent.Semaphore
+
 fun main() {
-    val store = Store()
-    val producer = Producer(store)
-    val consumer = Consumer(store)
+    val sem = Semaphore(2)
 
-    Thread(producer).start()
-    Thread(consumer).start()
-
+    for (x in 1 until 6) {
+        Philosopher(sem, x).start()
+    }
 }
+
